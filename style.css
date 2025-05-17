@@ -1,0 +1,33 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 0; background-color: #f4f4f4;
+}
+header {
+    background-color: #004aad;
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+section {
+    margin: 1rem;
+    background: white;
+    padding: 1rem;
+    border-radius: 5px;
+}
+select {
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 400px;
+    font-size: 1rem;
+}
+#results {
+    margin-top: 2rem;
+}
+#paths > div {
+    border: 1px solid #ddd;
+    background: #fafafa;
+    margin: 0.5rem 0;
+    padding: 0.75rem;
+    border-radius: 4px;
+}
