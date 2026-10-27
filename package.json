@@ -1,0 +1,11 @@
+{
+  "name": "career-path-explorer",
+  "version": "2.0.0",
+  "description": "Personalised career recommendations, skill-gap analysis and learning roadmaps. No build step, no dependencies.",
+  "private": true,
+  "scripts": {
+    "test": "node --test",
+    "start": "python3 -m http.server 8080"
+  },
+  "engines": { "node": ">=18" }
+}

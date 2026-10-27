@@ -1,33 +1,109 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Career Path Explorer</title>
-    <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Get personalised career matches, skill-gap analysis and step-by-step learning roadmaps based on your qualification, interests and skills." />
+  <title>Career Path Explorer</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="app-header">
+    <div class="wrap header-row">
+      <div>
         <h1>Career Path Explorer</h1>
-    </header>
+        <p class="tagline">Find careers that fit you, see what to learn next, and track your progress.</p>
+      </div>
+      <button type="button" class="btn btn-light" id="exportBtn">Export PDF</button>
+    </div>
+    <div class="wrap">
+      <div class="tabs" role="tablist" aria-label="Sections">
+        <button type="button" role="tab" id="tab-discover" aria-controls="panel-discover" aria-selected="true">Discover</button>
+        <button type="button" role="tab" id="tab-roadmap" aria-controls="panel-roadmap" aria-selected="false" tabindex="-1">Roadmap</button>
+        <button type="button" role="tab" id="tab-saved" aria-controls="panel-saved" aria-selected="false" tabindex="-1">My careers <span class="badge" id="savedCount" hidden>0</span></button>
+      </div>
+    </div>
+  </header>
 
-    <section>
-        <label for="currentQualification">Select Your Current Qualification:</label>
-        <select id="currentQualification"></select>
+  <main id="main" class="wrap">
+    <p id="status" class="sr-only" role="status" aria-live="polite"></p>
+    <p id="notice" class="notice" role="alert" hidden></p>
+
+    <!-- DISCOVER -->
+    <section id="panel-discover" role="tabpanel" aria-labelledby="tab-discover">
+      <form id="profileForm" class="card" novalidate>
+        <h2>About you</h2>
+        <p class="hint">Answer what you can. Everything stays in your browser.</p>
+
+        <div class="field">
+          <label for="currentQualification">Current qualification <span class="req">(required)</span></label>
+          <select id="currentQualification" aria-describedby="err-qualification" required></select>
+          <p class="error" id="err-qualification" hidden></p>
+        </div>
+
+        <fieldset class="field" id="interestsField" aria-describedby="err-interests">
+          <legend>What interests you? <span class="hint-inline">Pick any that apply</span></legend>
+          <div class="chips" id="interestChips"></div>
+          <p class="error" id="err-interests" hidden></p>
+        </fieldset>
+
+        <fieldset class="field" id="skillsField" aria-describedby="err-skills">
+          <legend>Skills you already have <span class="hint-inline">Be honest: this drives your skill-gap analysis</span></legend>
+          <div id="skillGroups"></div>
+          <p class="error" id="err-skills" hidden></p>
+        </fieldset>
+
+        <div class="field">
+          <label for="endGoal">A career you already have in mind <span class="hint-inline">(optional)</span></label>
+          <select id="endGoal" aria-describedby="err-goal"></select>
+          <p class="error" id="err-goal" hidden></p>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn btn-primary">Find my matches</button>
+          <button type="button" class="btn" id="resetForm">Clear form</button>
+        </div>
+      </form>
+
+      <section id="results" aria-labelledby="resultsTitle" hidden>
+        <div class="section-head">
+          <h2 id="resultsTitle">Your ranked matches</h2>
+          <p class="hint" id="resultsHint"></p>
+        </div>
+        <div id="matchList" class="match-list"></div>
+        <div class="center"><button type="button" class="btn" id="toggleAll" hidden></button></div>
+        <div id="nextSteps" class="card"></div>
+      </section>
     </section>
 
-    <section>
-        <label for="endGoal">Select Your Career Goal:</label>
-        <select id="endGoal"></select>
+    <!-- ROADMAP -->
+    <section id="panel-roadmap" role="tabpanel" aria-labelledby="tab-roadmap" hidden>
+      <div class="card">
+        <label for="roadmapCareer">Career</label>
+        <select id="roadmapCareer"></select>
+      </div>
+      <div id="roadmapBody"></div>
     </section>
 
-    <section id="results">
-        <h2>Possible Career Paths</h2>
-        <div id="paths"></div>
+    <!-- SAVED -->
+    <section id="panel-saved" role="tabpanel" aria-labelledby="tab-saved" hidden>
+      <div id="savedBody"></div>
     </section>
+  </main>
 
-    <script src="data.js"></script>
-    <script src="app.js"></script>
+  <footer class="wrap site-footer">
+    <p>Guidance only: requirements, exams and timelines change, so check official sources before you commit. Your data is stored only in this browser.</p>
+    <button type="button" class="btn btn-link" id="clearData">Clear all saved data</button>
+  </footer>
+
+  <!-- Built on demand for PDF export; only visible when printing -->
+  <div id="printReport" class="print-only" aria-hidden="true"></div>
+
+  <script src="data.js"></script>
+  <script src="engine.js"></script>
+  <script src="store.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
